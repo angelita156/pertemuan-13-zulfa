@@ -1,4 +1,4 @@
-const apiUrl = "https://backend-kamu.onrender.com/articles";
+const apiUrl = "https://pertemuan-13-zulfa.vercel.app/articles";
 
 function goToAddPage() {
   window.location.href = "artikel.html";

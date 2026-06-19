@@ -65,7 +65,7 @@
       };
 
       async function loadArticles() {
-        const response = await fetch("http://localhost:3000/articles");
+        const response = await fetch("https://pertemuan-13-zulfa.vercel.app/articles");
         const articles = await response.json();
 
         const list = document.getElementById("article-list");
@@ -96,7 +96,7 @@
       }
 
       async function deleteArticle(id) {
-        await fetch(`http://localhost:3000/articles/${id}`, {
+        await fetch(`https://pertemuan-13-zulfa.vercel.app/articles/${id}`, {
           method: "DELETE",
         });
 
@@ -114,7 +114,7 @@
         }
 
         if (editId === null) {
-          const response = await fetch("http://localhost:3000/articles", {
+          const response = await fetch("https://pertemuan-13-zulfa.vercel.app/articles", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -139,7 +139,7 @@
             }
           }
         } else {
-          await fetch(`http://localhost:3000/articles/${editId}`, {
+          await fetch(`https://pertemuan-13-zulfa.vercel.app/articles/${editId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
