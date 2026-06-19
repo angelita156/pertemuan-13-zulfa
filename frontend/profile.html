@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Zulfa</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#4CAF50">
+  </head>
+  <body>
+    <header>
+      <h1>Website Zulfa</h1>
+      <nav>
+        <ul>
+          <li><a href="#prof">Home</a></li>
+          <li><a href="#tentang">Tentang Saya</a></li>
+          <li><a href="#hobi">Hobi</a></li>
+          <li><a href="#goals">Goals</a></li>
+          <li><a href="#fav">Favorit</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+          <li><a href="artikel.html">Artikel</a></li>
+        </ul>
+      </nav>
+    </header>
+    <article id="prof">
+      <div class="text">
+        <h1>Zulfa</h1>
+        <p>
+          Perkenalkan nama saya Zulfa Angelita Huwaida, bisa dipanggil Zulfa
+          ataupun Angel. Saya tinggal di Cilacap, saat ini berusia 19 tahun dan
+          sedang menempuh pendidikan di Universitas Nahdlatul Ulama Al Ghazali,
+          Jurusan Informatika, Fakultas Matematika dan Ilmu Komputer.
+        </p>
+        <img src="nara.jpg" class="profile-img" alt="Foto Profil Zulfa" />
+      </div>
+    </article>
+    <main>
+      <div id="content">
+        <article id="tentang">
+          <h2>Tentang Saya</h2>
+          <p>
+            Saya adalah pribadi yang <strong>adaptif</strong> dan memiliki rasa
+            ingin tahu yang tinggi. Saya senang mencoba serta mempelajari
+            hal-hal baru, terutama di bidang teknologi. Saat ini,
+            <em>saya memiliki ketertarikan pada jaringan komputer</em> dan terus
+            mengembangkan kemampuan di bidang tersebut. Selain itu, saya juga
+            tertarik mempelajari data untuk mendukung rencana melanjutkan studi
+            ke bidang <strong>Ilmu Perpustakaan</strong>.
+          </p>
+        </article>
+        <div class="row-flex">
+          <article id="hobi">
+            <h2>Hobi</h2>
+            <ul>
+              <li>Mencoba hal baru</li>
+              <li>Mendengarkan musik</li>
+              <li>Berpetualang ke alam</li>
+              <li>Membaca Novel &amp; Komik</li>
+              <li>Fotografi</li>
+            </ul>
+          </article>
+          <article id="goals">
+            <h2>My Top 3 Goals</h2>
+            <ol>
+              <li>Lulus dengan Predikat Cumlaude</li>
+              <li>Menguasai keterampilan di bidang Informatika</li>
+              <li>Bekerja di Telkom Indonesia</li>
+            </ol>
+          </article>
+        </div>
+        <div class="contact-section" id="contact-us">
+          <h2>Contact Me</h2>
+          <p>
+            Kalau kamu punya pertanyaan, saran, atau mau ngobrol, isi form di
+            bawah ya
+          </p>
+          <form class="contact-form">
+            <input type="text" placeholder="Nama Kamu" required />
+            <input type="email" placeholder="Email" required />
+
+            <div class="phone-group">
+              <span>+62</span>
+              <input type="text" placeholder="Nomor HP (opsional)" />
+            </div>
+            <div class="grid-2">
+              <input type="text" placeholder="Asal / Kota" />
+              <select>
+                <option>Kategori Pesan</option>
+                <option>Pertanyaan</option>
+                <option>Saran</option>
+                <option>Kerja Sama</option>
+                <option>Temenan</option>
+              </select>
+            </div>
+            <select>
+              <option>Topik</option>
+              <option>Travel</option>
+              <option>Fotografi</option>
+              <option>Teknologi</option>
+              <option>Manhwa / Komik</option>
+            </select>
+            <textarea placeholder="Tulis pesan kamu di sini..."></textarea>
+            <button type="submit">Kirim Pesan</button>
+          </form>
+        </div>
+        <h2>Lokasi Saya</h2>
+          <p id="status">Mengambil lokasi...</p>
+          <div id="map" style="width:100%; height:400px;"></div>
+        </section>
+      </div>
+      <aside>
+        <article id="fav">
+          <h2>Favourite Things</h2>
+          <table>
+            <tr>
+              <th>Kategori</th>
+              <th>Favorit</th>
+            </tr>
+            <tr>
+              <td>Makanan</td>
+              <td>Ayam Kecap</td>
+            </tr>
+            <tr>
+              <td>Minuman</td>
+              <td>Greentea &amp; Taro</td>
+            </tr>
+            <tr>
+              <td>Warna</td>
+              <td>Biru &amp; Pink</td>
+            </tr>
+            <tr>
+              <td>Film</td>
+              <td>Bollywood</td>
+            </tr>
+            <tr>
+              <td>Buku</td>
+              <td>Novel / Komik</td>
+            </tr>
+            <tr>
+              <td>Musik</td>
+              <td>Pop, Indie Pop, Pop Ballad, Bollywood</td>
+            </tr>
+            <tr>
+              <td>Band</td>
+              <td>
+                ABBA, Seventeen, Westlife, Backstreet Boys, Lngshot, Arctic
+                Monkeys
+              </td>
+            </tr>
+          </table>
+        </article>
+        <div class="form-section" id="kontak">
+          <h2>Kirim Pesan</h2>
+          <div class="form-group">
+            <label for="nama" data-required="true">Nama Lengkap</label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Masukkan nama kamu..."
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email" data-required="true">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="contoh@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="pesan">Pesan</label>
+            <textarea
+              id="pesan"
+              name="pesan"
+              placeholder="Tuliskan pesanmu di sini..."
+            ></textarea>
+          </div>
+          <button type="button" class="btn-submit">Kirim Pesan</button>
+        </div>
+      </aside>
+      <article id="art">
+        <h2>Artikel</h2>
+        <button onclick="goToAddPage()">+ Tambah Artikel</button>
+        <div id="article-list"></div>
+      </article>
+    </main>
+    <footer>
+      <p>&copy; 2026 Zulfa Angelita H — Tugas Web Programming</p>
+    </footer>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

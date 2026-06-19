@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artikel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Website Zulfa</h1>
+      <nav>
+        <ul>
+          <li><a href="profile.html#prof">Home</a></li>
+          <li><a href="profile.html#tentang">Tentang Saya</a></li>
+          <li><a href="profile.html#hobi">Hobi</a></li>
+          <li><a href="profile.html#goals">Goals</a></li>
+          <li><a href="profile.html#fav">Favorit</a></li>
+          <li><a href="profile.html#kontak">Kontak</a></li>
+          <li><a href="profile.html#art">Artikel</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="artikel-container">
+      <div class="artikel-list">
+        <h2>Daftar Artikel</h2>
+        <div id="article-list"></div>
+      </div>
+      <div class="artikel-form">
+        <h2>Tambah Artikel</h2>
+        <input type="text" id="title" placeholder="Judul Artikel" /><br /><br />
+        <input type="file" id="image" /><br /><br />
+
+        <button type="button" id="cameraBtn">Buka Kamera</button>
+
+        <button type="button" id="captureBtn" style="display: none">
+          Ambil Foto
+        </button>
+
+        <br /><br />
+        <video id="video" width="300" autoplay style="display: none"></video>
+
+        <canvas id="canvas" width="300" height="200" style="display: none">
+        </canvas>
+
+        <br /><br />
+        <textarea id="content"></textarea><br /><br />
+        <button onclick="saveArticle()">Simpan</button>
+      </div>
+    </div>
+    <script>
+      if ("Notification" in window) {
+        Notification.requestPermission().then((permission) => {
+          console.log(permission);
+        });
+      }
+      let editId = null;
+
+      if ("Notification" in window) {
+        Notification.requestPermission();
+      }
+
+      window.onload = function () {
+        loadArticles();
+      };
+
+      async function loadArticles() {
+        const response = await fetch("http://localhost:3000/articles");
+        const articles = await response.json();
+
+        const list = document.getElementById("article-list");
+        list.innerHTML = "";
+
+        articles.forEach((article) => {
+          const div = document.createElement("div");
+
+          div.innerHTML = `
+                              <h3>${article.title}</h3>
+
+                              ${article.image ? `<img src="${article.image}" width="250">` : ""}
+
+                              <p>${article.content}</p>
+                              <button onclick="editArticle(${article.id}, '${article.title}', '${article.content}')">Edit</button>
+                              <button onclick="deleteArticle(${article.id})">Hapus</button>
+                            `;
+
+          list.appendChild(div);
+        });
+      }
+
+      function editArticle(id, title, content) {
+        document.getElementById("title").value = title;
+        document.getElementById("content").value = content;
+
+        editId = id;
+      }
+
+      async function deleteArticle(id) {
+        await fetch(`http://localhost:3000/articles/${id}`, {
+          method: "DELETE",
+        });
+
+        loadArticles();
+      }
+
+      async function saveArticle() {
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+        const image = window.cameraImage || "";
+
+        if (!title || !content) {
+          alert("Isi semua dulu!");
+          return;
+        }
+
+        if (editId === null) {
+          const response = await fetch("http://localhost:3000/articles", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title,
+              content,
+              image,
+            }),
+          });
+
+          if (response.ok) {
+            if (Notification.permission !== "granted") {
+              await Notification.requestPermission();
+            }
+
+            if (Notification.permission === "granted") {
+              new Notification("📰 Artikel Baru", {
+                body: `${title} berhasil ditambahkan`,
+                icon: "nara.jpg",
+              });
+            }
+          }
+        } else {
+          await fetch(`http://localhost:3000/articles/${editId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title,
+              content,
+              image,
+            }),
+          });
+
+          editId = null;
+        }
+
+        resetForm();
+        loadArticles();
+      }
+      function resetForm() {
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+        document.getElementById("image").value = "";
+
+        window.cameraImage = "";
+
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        canvas.style.display = "none";
+        video.style.display = "none";
+        captureBtn.style.display = "none";
+      }
+      const cameraBtn = document.getElementById("cameraBtn");
+      const captureBtn = document.getElementById("captureBtn");
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+
+      let stream;
+      cameraBtn.addEventListener("click", async () => {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+
+          video.srcObject = stream;
+
+          video.style.display = "block";
+          captureBtn.style.display = "inline-block";
+        } catch (error) {
+          alert("Kamera tidak dapat diakses");
+          console.error(error);
+        }
+      });
+      captureBtn.addEventListener("click", () => {
+        const ctx = canvas.getContext("2d");
+
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const imageData = canvas.toDataURL("image/png");
+
+        window.cameraImage = imageData;
+
+        canvas.style.display = "block";
+
+        if (stream) {
+          stream.getTracks().forEach((track) => track.stop());
+        }
+
+        video.style.display = "none";
+        captureBtn.style.display = "none";
+
+        alert("Foto berhasil diambil");
+      });
+    </script>
+  </body>
+</html>
