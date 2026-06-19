@@ -212,6 +212,27 @@
 
         alert("Foto berhasil diambil");
       });
+
+      const imageInput = document.getElementById("image");
+      imageInput.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            window.cameraImage = event.target.result;
+
+            const img = new Image();
+            img.onload = function () {
+              const ctx = canvas.getContext("2d");
+              canvas.style.display = "block";
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
     </script>
   </body>
 </html>

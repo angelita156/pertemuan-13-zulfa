@@ -78,6 +78,11 @@ if (navigator.geolocation) {
       document.getElementById("status").innerHTML =
         "Lokasi tidak dapat diakses.";
     },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    }
   );
 } else {
   document.getElementById("status").innerHTML =
