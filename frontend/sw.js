@@ -1,14 +1,18 @@
-const CACHE_NAME = "profile-cache-v1";
+const CACHE_NAME = "profile-cache-v2";
 
 const urlsToCache = [
   "./",
+  "./index.html",
   "./profile.html",
   "./artikel.html",
   "./script.js",
+  "./file.js",
   "./style.css",
+  "./ceeses.css",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
+  "./nara.jpg",
 ];
 
 self.addEventListener("install", (event) => {
